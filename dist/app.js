@@ -1,28 +1,46 @@
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    const id = link.getAttribute('href');
-    if (id && id.length > 1) history.replaceState(null, '', id);
-  });
+const imageDialog = document.getElementById('image-dialog');
+const expandedImage = document.getElementById('expanded-image');
+
+document.addEventListener('click', (event) => {
+  const trigger = event.target.closest('[data-image]');
+  if (!trigger) return;
+  expandedImage.src = trigger.dataset.image;
+  expandedImage.alt = trigger.dataset.caption || trigger.querySelector('img')?.alt || '项目图片';
+  document.getElementById('image-caption').textContent = expandedImage.alt;
+  imageDialog.showModal();
 });
 
-const lightbox = document.querySelector('#image-lightbox');
-const lightboxImage = lightbox?.querySelector('img');
-const lightboxTitle = lightbox?.querySelector('#lightbox-title');
-const lightboxClose = lightbox?.querySelector('.lightbox-close');
-
-document.querySelectorAll('[data-lightbox-src]').forEach((button) => {
-  button.addEventListener('click', () => {
-    if (!lightbox || !lightboxImage || !lightboxTitle) return;
-    const title = button.dataset.lightboxTitle || '图片预览';
-    lightboxImage.src = button.dataset.lightboxSrc || '';
-    lightboxImage.alt = title;
-    lightboxTitle.textContent = title;
-    lightbox.showModal();
-    lightboxClose?.focus();
-  });
+document.getElementById('close-image').addEventListener('click', () => imageDialog.close());
+imageDialog.addEventListener('click', (event) => {
+  if (event.target !== imageDialog) return;
+  const box = imageDialog.getBoundingClientRect();
+  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) imageDialog.close();
 });
 
-lightboxClose?.addEventListener('click', () => lightbox?.close());
-lightbox?.addEventListener('click', (event) => {
-  if (event.target === lightbox) lightbox.close();
+document.querySelectorAll('a[href$="-detail"]').forEach((link) => link.addEventListener('click', () => {
+  const detail = document.getElementById(link.hash.slice(1));
+  if (detail?.tagName === 'DETAILS') detail.open = true;
+}));
+
+const themeButton = document.getElementById('theme-toggle');
+function setTheme(isDark) {
+  document.body.classList.toggle('dark', isDark);
+  themeButton.setAttribute('aria-pressed', String(isDark));
+  themeButton.textContent = isDark ? '切换浅色' : '切换深色';
+}
+try { setTheme(localStorage.getItem('overseas-ops-theme') === 'dark'); } catch { setTheme(false); }
+themeButton.addEventListener('click', () => {
+  const isDark = !document.body.classList.contains('dark');
+  setTheme(isDark);
+  try { localStorage.setItem('overseas-ops-theme', isDark ? 'dark' : 'light'); } catch {}
+});
+
+document.getElementById('print-page').addEventListener('click', () => window.print());
+let printOpenState = [];
+window.addEventListener('beforeprint', () => {
+  printOpenState = [...document.querySelectorAll('details')].map((element) => [element, element.open]);
+  printOpenState.forEach(([element]) => { element.open = true; });
+});
+window.addEventListener('afterprint', () => {
+  printOpenState.forEach(([element, open]) => { element.open = open; });
 });

@@ -43,6 +43,7 @@ nav a:hover::after { right: 0; }
 .hero-copy { min-width: 0; }
 .hero h1 { margin: 20px 0 22px; max-width: 590px; font-size: clamp(38px, 4.2vw, 58px); line-height: 1.16; letter-spacing: -.045em; }
 .hero-intro { max-width: 520px; color: var(--muted); font-size: 17px; }
+.language-line { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; color: var(--green); font-size: 13px; font-weight: 750; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 34px; }
 .primary { min-height: 50px; display: inline-flex; align-items: center; gap: 34px; padding: 12px 18px; background: var(--green); color: white; font-weight: 750; }
 .primary:hover { background: var(--green-2); }
@@ -64,6 +65,14 @@ nav a:hover::after { right: 0; }
 .hero-stats dd { margin-top: 7px; color: var(--muted); font-size: 11px; }
 
 .experience { border-top: 1px solid var(--line); }
+.evidence-section { border-block: 1px solid var(--line); background: var(--surface); }
+.evidence-list { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.evidence-list article { display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding: 30px 30px 30px 0; border-top: 1px solid var(--line); }
+.evidence-list article:nth-child(even) { padding-left: 30px; border-left: 1px solid var(--line); }
+.evidence-list article > span { color: var(--green); font: 800 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.evidence-list h3 { margin-top: 5px; font-size: 22px; line-height: 1.35; }
+.evidence-list article div > p:last-child { margin-top: 9px; color: var(--muted); font-size: 14px; }
+.en-label { color: var(--coral); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
 .section-head { margin-bottom: 54px; }
 .split-head { display: grid; grid-template-columns: 1fr 2.15fr; gap: 56px; align-items: start; }
 .section-head h2 { font-size: clamp(34px, 4.2vw, 54px); line-height: 1.16; letter-spacing: -.05em; }
@@ -114,6 +123,18 @@ nav a:hover::after { right: 0; }
 .method-cards span { grid-area: number; padding-top: 5px; }
 .method-cards h3 { grid-area: title; max-width: 280px; font-size: 21px; line-height: 1.35; }
 .method-cards p { grid-area: copy; margin-top: 8px; color: var(--muted); font-size: 14px; }
+.method-cards li > div { grid-column: 2; }
+.method-cards li > div .en-label { margin: 0 0 5px; }
+.method-cards li > div h3 { margin: 0; }
+.method-cards li > div p:last-child { margin-top: 7px; }
+
+.operations-projects { border-top: 1px solid var(--line); }
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.scenario-grid article { min-width: 0; background: var(--surface); border: 1px solid var(--line); }
+.scenario-grid article > img { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: var(--paper-2); }
+.scenario-grid article > div { padding: 26px; }
+.scenario-grid h3 { margin-top: 10px; font-size: 24px; }
+.scenario-grid article > div > p:last-child { margin-top: 10px; color: var(--muted); font-size: 14px; }
 
 .projects { background: var(--paper); }
 .projects-head { margin-bottom: 70px; }
@@ -182,6 +203,8 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
   .experience-grid { grid-template-columns: 1fr 1fr; }
   .experience-card:last-child { grid-column: 1 / -1; min-height: 250px; }
   .project-grid { grid-template-columns: 1fr; }
+  .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .scenario-grid article:last-child { grid-column: 1 / -1; }
 }
 
 @media (max-width: 680px) {
@@ -220,6 +243,10 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
   .method { padding-block: 58px; }
   .method-cards li { min-height: 0; padding: 24px; }
   .method-cards li + li { padding-left: 24px; border-top: 1px solid var(--line); border-left: 0; }
+  .evidence-list { grid-template-columns: 1fr; }
+  .evidence-list article, .evidence-list article:nth-child(even) { padding: 24px 0; border-left: 0; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .scenario-grid article:last-child { grid-column: auto; }
   .carbon-copy { display: block; padding: 34px 26px; }
   .carbon-copy h3 { font-size: 40px; }
   .carbon-copy .project-link { display: inline-block; }

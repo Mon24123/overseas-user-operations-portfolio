@@ -1,4 +1,4 @@
-name: Deploy marketing portfolio
+name: Deploy overseas user operations portfolio
 
 on:
   push:
